@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from app.predict import predict_churn
-from app.database import SessionLocal
-from app.models import Prediction
+# from app.database import SessionLocal
+# from app.models import Prediction
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Customer Churn Prediction API")
@@ -44,27 +44,7 @@ def predict(data: CustomerData):
         # 🔹 Run ML prediction
         result = predict_churn(data.dict())
 
-        # 🔹 DB connection
-        db = SessionLocal()
-
-        # 🔹 Create DB record
-        record = Prediction(
-            credit_score=data.CreditScore,
-            age=data.Age,
-            tenure=data.Tenure,
-            balance=data.Balance,
-            num_products=data.NumOfProducts,
-            has_credit_card=data.HasCrCard,
-            is_active_member=data.IsActiveMember,
-            estimated_salary=data.EstimatedSalary,
-            probability=result["churn_probability"],
-            prediction=result["prediction"]
-        )
-
-        # 🔹 Save to DB
-        db.add(record)
-        db.commit()
-
+        # ✅ ONLY return prediction (NO DB)
         return {
             "status": "success",
             "prediction": result["prediction"],
@@ -73,6 +53,3 @@ def predict(data: CustomerData):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-    finally:
-        db.close()
