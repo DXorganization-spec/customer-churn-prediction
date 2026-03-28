@@ -1,33 +1,30 @@
-import joblib
+import pickle
 import numpy as np
+import os
 
-# Load trained model
-model = joblib.load("app/model/churn_model.pkl")
+# ✅ Absolute path (safe for deployment)
+MODEL_PATH = os.path.join("app", "model", "churn_model.pkl")
+
+# ✅ Load model ONCE (important for performance)
+with open(MODEL_PATH, "rb") as f:
+    model = pickle.load(f)
 
 
-def predict_churn(input_data: dict):
+def predict_churn(data: dict):
+    try:
+        # Convert input dict → list → numpy array
+        features = np.array(list(data.values())).reshape(1, -1)
 
-    feature_order = [
-        "CreditScore",
-        "Age",
-        "Tenure",
-        "Balance",
-        "NumOfProducts",
-        "HasCrCard",
-        "IsActiveMember",
-        "EstimatedSalary",
-        "Geography_Germany",
-        "Geography_Spain",
-        "Gender_Male"
-    ]
+        # Prediction
+        prediction = model.predict(features)[0]
+        probability = model.predict_proba(features)[0][1]
 
-    values = [input_data.get(feature, 0) for feature in feature_order]
-    values_array = np.array(values).reshape(1, -1)
+        return {
+            "prediction": int(prediction),
+            "churn_probability": float(probability)
+        }
 
-    probability = model.predict_proba(values_array)[0][1]
-    prediction = model.predict(values_array)[0]
-
-    return {
-        "churn_probability": float(probability),
-        "prediction": int(prediction)
-    }
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
