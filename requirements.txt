@@ -1,12 +1,7 @@
-fastapi
-uvicorn
-pydantic
-scikit-learn
-pandas
-numpy
-sqlalchemy
-psycopg2-binary
-xgboost
 streamlit
 requests
 plotly
+pandas
+numpy
+scikit-learn
+xgboost

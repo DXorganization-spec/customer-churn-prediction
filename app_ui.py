@@ -90,21 +90,32 @@ with tab1:
             "Gender_Male": gender_male
         }
 
-        with st.spinner("Running AI model..."):
-            response = requests.post(
-                "https://churn-api-wdug.onrender.com/predict",
-                json=data
-            )
+        try:
+            with st.spinner("Running AI model..."):
 
-            result = response.json()
-            prob = result["churn_probability"] * 100
+                response = requests.post(
+                    "https://churn-api-wdug.onrender.com/predict",
+                    json=data,
+                    timeout=15   # ✅ FIX: prevent timeout crash
+                )
+
+                response.raise_for_status()  # ✅ FIX: catch API errors
+
+                result = response.json()
+
+                prob = result.get("churn_probability", 0) * 100
+                prediction = result.get("prediction", 0)
+
+        except Exception as e:
+            st.error("⚠ API is waking up or temporarily unavailable. Please try again.")
+            st.stop()
 
         # -------- RESULT CARDS --------
         st.markdown("## 📊 Result Dashboard")
 
         col1, col2, col3 = st.columns(3)
 
-        col1.metric("Prediction", "Churn" if result["prediction"] else "No Churn")
+        col1.metric("Prediction", "Churn" if prediction else "No Churn")
         col2.metric("Probability", f"{prob:.2f}%")
 
         if prob < 30:
@@ -119,7 +130,6 @@ with tab1:
 
         col3.metric("Risk Level", f"{color} {risk}")
 
-        # -------- PROGRESS --------
         st.progress(int(prob))
 
         # -------- GAUGE --------
@@ -160,7 +170,6 @@ with tab2:
         else:
             st.success("Customer is stable")
 
-        # -------- FEATURE CHART --------
         features = {
             "Age": age,
             "Balance": balance,
