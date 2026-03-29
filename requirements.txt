@@ -7,3 +7,6 @@ numpy
 sqlalchemy
 psycopg2-binary
 xgboost
+streamlit
+requests
+plotly
