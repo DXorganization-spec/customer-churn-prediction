@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Churn AI SaaS — Intelligence System</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <div>
+          <h2 class="sidebar-title">Control Panel</h2>
+          <p class="sidebar-subtitle">Customer Parameters</p>
+        </div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <!-- Financial Section -->
+      <div class="section">
+        <div class="section-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <span>Financial</span>
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label>Credit Score</label>
+            <span class="control-value mono cyan" id="creditScoreVal">600</span>
+          </div>
+          <input type="range" id="creditScore" min="300" max="900" value="600" class="slider slider-cyan" />
+        </div>
+
+        <div class="control-group">
+          <label>Balance</label>
+          <input type="number" id="balance" value="50000" class="input-field mono" />
+        </div>
+
+        <div class="control-group">
+          <label>Estimated Salary</label>
+          <input type="number" id="salary" value="50000" class="input-field mono" />
+        </div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <!-- Demographics Section -->
+      <div class="section">
+        <div class="section-label indigo">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Demographics</span>
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label>Age</label>
+            <span class="control-value mono indigo" id="ageVal">40</span>
+          </div>
+          <input type="range" id="age" min="18" max="100" value="40" class="slider slider-indigo" />
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label>Tenure (years)</label>
+            <span class="control-value mono indigo" id="tenureVal">5</span>
+          </div>
+          <input type="range" id="tenure" min="0" max="10" value="5" class="slider slider-indigo" />
+        </div>
+
+        <div class="control-group">
+          <label>Gender</label>
+          <select id="gender" class="select-field">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <!-- Account Section -->
+      <div class="section">
+        <div class="section-label emerald">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Account</span>
+        </div>
+
+        <div class="control-group">
+          <label>Geography</label>
+          <select id="geography" class="select-field">
+            <option value="France">🇫🇷 France</option>
+            <option value="Germany">🇩🇪 Germany</option>
+            <option value="Spain">🇪🇸 Spain</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Number of Products</label>
+          <select id="numProducts" class="select-field">
+            <option value="1">1 Product</option>
+            <option value="2">2 Products</option>
+            <option value="3">3 Products</option>
+            <option value="4">4 Products</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Has Credit Card</label>
+          <select id="hasCard" class="select-field">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Active Member</label>
+          <select id="isActive" class="select-field">
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+          </select>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Header -->
+      <div class="hero-header">
+        <div class="hero-bg" style="background-image: url(
+https://mgx-backend-cdn.metadl.com/generate/images/1074796/2026-03-30/c6a2f368-b07f-4d02-8ee7-a40ab0bfed99.png)"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-top-row">
+            <div class="brand-badge">
+              <div class="brand-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <span>Churn AI SaaS</span>
+            </div>
+            <div class="risk-badge hidden" id="riskBadge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span id="riskBadgeText">0.0% risk</span>
+            </div>
+          </div>
+          <h1 class="hero-title">Churn Intelligence System</h1>
+          <p class="hero-desc">AI-powered prediction, insights & retention engine</p>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs-container">
+        <div class="tabs-list">
+          <button class="tab-btn active" data-tab="prediction" onclick="switchTab(prediction)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Prediction
+          </button>
+          <button class="tab-btn" data-tab="insights" onclick="switchTab(insights)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Insights
+          </button>
+          <button class="tab-btn" data-tab="strategy" onclick="switchTab(strategy)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+            Strategy
+          </button>
+        </div>
+
+        <!-- Prediction Tab -->
+        <div class="tab-content active" id="tab-prediction">
+          <div class="tab-header">
+            <div>
+              <h2 class="tab-title">
+                <div class="tab-icon cyan">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+                </div>
+                AI Churn Analysis
+              </h2>
+              <p class="tab-desc">Run the prediction model on current customer parameters</p>
+            </div>
+            <button class="btn-glow" id="analyzeBtn" onclick="handleAnalyze()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+              <span id="analyzeBtnText">Analyze Now</span>
+            </button>
+          </div>
+
+          <!-- Error -->
+          <div class="error-banner hidden" id="errorBanner">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <p id="errorText"></p>
+          </div>
+
+          <!-- Results -->
+          <div class="hidden" id="predictionResults">
+            <!-- Metric Cards -->
+            <div class="metric-grid">
+              <div class="glass-card metric-card" id="predictionCard">
+                <div class="metric-icon-wrap" id="predictionIconWrap">
+                  <span id="predictionIcon"></span>
+                </div>
+                <p class="metric-label">Prediction</p>
+                <p class="metric-value" id="predictionValue">—</p>
+              </div>
+
+              <div class="glass-card metric-card">
+                <div class="metric-icon-wrap cyan-bg">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00C9FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <p class="metric-label">Probability</p>
+                <p class="metric-value mono cyan" id="probabilityValue">—</p>
+              </div>
+
+              <div class="glass-card metric-card" id="riskCard">
+                <div class="metric-icon-wrap" id="riskIconWrap">
+                  <span class="risk-emoji" id="riskEmoji">—</span>
+                </div>
+                <p class="metric-label">Risk Level</p>
+                <p class="metric-value" id="riskLevelValue">—</p>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="glass-card" style="padding: 24px;">
+              <div class="progress-header">
+                <span class="progress-label">Churn Risk Meter</span>
+                <span class="mono progress-value" id="progressPercent">0%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+              <div class="progress-labels">
+                <span class="safe">Safe</span>
+                <span class="moderate">Moderate</span>
+                <span class="critical">Critical</span>
+              </div>
+            </div>
+
+            <!-- Gauge Chart -->
+            <div class="glass-card gauge-container">
+              <svg id="gaugeChart" width="320" height="230" viewBox="0 0 320 230"></svg>
+              <div class="gauge-text">
+                <span class="gauge-value mono" id="gaugeValue">0.0%</span>
+                <span class="gauge-label">Churn Probability</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="emptyState">
+            <img src="https://mgx-backend-cdn.metadl.com/generate/images/1074796/2026-03-30/0174c796-797a-485f-99be-6e0cc248b219.png" alt="AI Brain" class="empty-img float-anim" />
+            <h3>Ready to Analyze</h3>
+            <p>Configure customer parameters in the sidebar, then click "Analyze Now" to run the AI prediction model.</p>
+          </div>
+        </div>
+
+        <!-- Insights Tab -->
+        <div class="tab-content" id="tab-insights">
+          <!-- Empty state -->
+          <div class="empty-state" id="insightsEmpty">
+            <img src="https://mgx-backend-cdn.metadl.com/generate/images/1074796/2026-03-30/62cfaf25-833f-416e-bb68-de22bc041a3d.png" alt="Analytics" class="empty-img float-anim" />
+            <h3>No Data Yet</h3>
+            <p>Run a prediction first to unlock customer insights.</p>
+          </div>
+
+          <!-- Insights content -->
+          <div class="hidden" id="insightsContent">
+            <div class="tab-header-simple">
+              <h2 class="tab-title">
+                <div class="tab-icon indigo">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                Customer Intelligence
+              </h2>
+              <p class="tab-desc">AI-powered analysis of customer behavior patterns</p>
+            </div>
+
+            <!-- AI Interpretation -->
+            <div class="glass-card interpretation-card" id="interpretationCard">
+              <div class="interpretation-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C9FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+                <h3>AI Interpretation</h3>
+              </div>
+              <div class="interpretation-body" id="interpretationBody"></div>
+            </div>
+
+            <!-- Feature Analysis -->
+            <div class="glass-card" style="padding: 24px;">
+              <div class="interpretation-header" style="margin-bottom: 24px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                <h3>Feature Overview</h3>
+              </div>
+              <div id="featureBars"></div>
+            </div>
+
+            <!-- Legend -->
+            <div class="glass-card legend-card">
+              <div class="legend-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+                <span>Reduces churn risk</span>
+              </div>
+              <div class="legend-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                <span>Increases churn risk</span>
+              </div>
+              <div class="legend-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Neutral impact</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy Tab -->
+        <div class="tab-content" id="tab-strategy">
+          <!-- Empty state -->
+          <div class="empty-state" id="strategyEmpty">
+            <img src="https://mgx-backend-cdn.metadl.com/generate/images/1074796/2026-03-30/385a6567-6b35-4051-b706-1395061f7789.png" alt="Shield" class="empty-img float-anim" />
+            <h3>Strategies Locked</h3>
+            <p>Run a prediction to unlock personalized retention strategies.</p>
+          </div>
+
+          <!-- Strategy content -->
+          <div class="hidden" id="strategyContent">
+            <div class="tab-header-simple">
+              <h2 class="tab-title">
+                <div class="tab-icon emerald">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+                </div>
+                Retention Engine
+              </h2>
+              <p class="tab-desc">AI-recommended strategies based on customer risk profile</p>
+            </div>
+
+            <!-- Status Banner -->
+            <div class="glass-card status-banner" id="statusBanner"></div>
+
+            <!-- Strategy Cards -->
+            <div class="strategy-grid" id="strategyGrid"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
