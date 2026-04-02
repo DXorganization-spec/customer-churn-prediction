@@ -1,7 +1,9 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse, HTMLResponse, Response
 from pydantic import BaseModel
 from app.predict import predict_churn
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI(title="Customer Churn Prediction API")
 
@@ -30,7 +32,25 @@ class CustomerData(BaseModel):
 
 @app.get("/")
 def home():
-    return {"message": "Customer Churn Prediction API is running 🚀"}
+    # Serve the HTML file
+    html_path = os.path.join(os.path.dirname(__file__), "..", "index.html")
+    with open(html_path, "r", encoding="utf-8") as f:
+        html_content = f.read()
+    return HTMLResponse(content=html_content)
+
+
+@app.get("/styles.css")
+def get_styles():
+    css_path = os.path.join(os.path.dirname(__file__), "..", "style.css")
+    with open(css_path, "r", encoding="utf-8") as f:
+        css_content = f.read()
+    return Response(content=css_content, media_type="text/css")
+
+
+@app.get("/app.js")
+def get_app_js():
+    js_path = os.path.join(os.path.dirname(__file__), "..", "app.js")
+    return FileResponse(js_path, media_type="application/javascript")
 
 
 @app.post("/predict")
