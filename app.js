@@ -221,10 +221,6 @@ async function handleAnalyze() {
     renderPredictionResults(prob, result.prediction);
     renderInsights(prob, data);
     renderStrategies(prob);
-    
-    // Switch to Insights tab to show rendered content
-    console.log('Switching to insights tab');
-    setTimeout(() => switchTab('insights'), 100);
 
     // Show risk badge
     const riskBadge = $('#riskBadge');
@@ -440,24 +436,11 @@ function drawGauge(value) {
 
 // ---- Render Insights ----
 function renderInsights(prob, customerData) {
-  console.log('renderInsights called with prob:', prob);
   const risk = getRiskLevel(prob);
 
   // Show content, hide empty
-  const insightsContent = $('#insightsContent');
-  const insightsEmpty = $('#insightsEmpty');
-  
-  console.log('insightsContent element:', insightsContent);
-  console.log('insightsEmpty element:', insightsEmpty);
-  
-  if (insightsContent) {
-    insightsContent.classList.remove('hidden');
-    console.log('Removed hidden from insightsContent');
-  }
-  if (insightsEmpty) {
-    insightsEmpty.classList.add('hidden');
-    console.log('Added hidden to insightsEmpty');
-  }
+  $('#insightsContent').classList.remove('hidden');
+  $('#insightsEmpty').classList.add('hidden');
 
   // Interpretation
   const body = $('#interpretationBody');
@@ -532,24 +515,11 @@ function renderInsights(prob, customerData) {
 
 // ---- Render Strategies ----
 function renderStrategies(prob) {
-  console.log('renderStrategies called with prob:', prob);
   const risk = getRiskLevel(prob);
 
   // Show content, hide empty
-  const strategyContent = $('#strategyContent');
-  const strategyEmpty = $('#strategyEmpty');
-  
-  console.log('strategyContent element:', strategyContent);
-  console.log('strategyEmpty element:', strategyEmpty);
-  
-  if (strategyContent) {
-    strategyContent.classList.remove('hidden');
-    console.log('Removed hidden from strategyContent');
-  }
-  if (strategyEmpty) {
-    strategyEmpty.classList.add('hidden');
-    console.log('Added hidden to strategyEmpty');
-  }
+  $('#strategyContent').classList.remove('hidden');
+  $('#strategyEmpty').classList.add('hidden');
 
   const highStrategies = [
     { icon: '🎁', title: 'Offer Incentives', desc: 'Provide exclusive discounts, fee waivers, or bonus rewards to re-engage the customer immediately.', priority: 'Critical' },
