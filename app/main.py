@@ -1,9 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse, Response
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, validator
 from app.predict import predict_churn
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from typing import Optional
 
 app = FastAPI(title="Customer Churn Prediction API")
 
@@ -17,17 +18,23 @@ app.add_middleware(
 )
 
 class CustomerData(BaseModel):
-    CreditScore: int
-    Age: int
-    Tenure: int
-    Balance: float
-    NumOfProducts: int
-    HasCrCard: int
-    IsActiveMember: int
-    EstimatedSalary: float
-    Geography_Germany: int
-    Geography_Spain: int
-    Gender_Male: int
+    CreditScore: int = Field(..., ge=300, le=900, description="Credit score between 300-900")
+    Age: int = Field(..., ge=18, le=100, description="Customer age between 18-100")
+    Tenure: int = Field(..., ge=0, le=10, description="Years as customer 0-10")
+    Balance: float = Field(..., ge=0, le=10000000, description="Account balance")
+    NumOfProducts: int = Field(..., ge=1, le=4, description="Number of products 1-4")
+    HasCrCard: int = Field(..., ge=0, le=1, description="Has credit card: 0 or 1")
+    IsActiveMember: int = Field(..., ge=0, le=1, description="Is active: 0 or 1")
+    EstimatedSalary: float = Field(..., ge=0, le=10000000, description="Estimated salary")
+    Geography_Germany: int = Field(..., ge=0, le=1, description="Is Germany: 0 or 1")
+    Geography_Spain: int = Field(..., ge=0, le=1, description="Is Spain: 0 or 1")
+    Gender_Male: int = Field(..., ge=0, le=1, description="Is male: 0 or 1")
+
+    @validator('NumOfProducts')
+    def validate_products(cls, v):
+        if v < 1 or v > 4:
+            raise ValueError('NumOfProducts must be between 1 and 4')
+        return v
 
 
 @app.get("/")
@@ -58,11 +65,43 @@ def predict(data: CustomerData):
     try:
         result = predict_churn(data.dict())
 
+        if "error" in result:
+            raise HTTPException(status_code=400, detail=result["error"])
+
         return {
             "status": "success",
             "prediction": result["prediction"],
             "churn_probability": result["churn_probability"]
         }
 
+    except ValueError as ve:
+        raise HTTPException(status_code=422, detail=f"Validation error: {str(ve)}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Server error: {str(e)}")
+
+
+@app.get("/health")
+def health_check():
+    """Health check endpoint"""
+    return {
+        "status": "ok",
+        "service": "Customer Churn Prediction API",
+        "version": "1.0.0"
+    }
+
+
+@app.get("/api/info")
+def api_info():
+    """API information endpoint"""
+    return {
+        "name": "Customer Churn Prediction API",
+        "version": "1.0.0",
+        "endpoints": {
+            "predict": "POST /predict - Predict churn for a customer",
+            "health": "GET /health - Health check",
+            "info": "GET /api/info - API information"
+        },
+        "model_type": "XGBoost Classifier",
+        "input_features": 11,
+        "output": "Binary prediction + probability"
+    }
